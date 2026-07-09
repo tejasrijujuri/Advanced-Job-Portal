@@ -1,37 +1,25 @@
-from django.http import JsonResponse
+from rest_framework import viewsets, permissions
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from .models import Notification
+from .serializers import NotificationSerializer
 
 
-def home(request):
+class NotificationViewSet(viewsets.ModelViewSet):
 
-    return JsonResponse({
-        "message": "Notification Module"
-    })
+    serializer_class = NotificationSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        return Notification.objects.filter(
+            user=self.request.user
+        ).order_by("is_read", "-created_at")
 
-def send_notification(request):
-
-    return JsonResponse({
-        "message": "Notification Sent Successfully"
-    })
-
-
-def notification_list(request):
-
-    return JsonResponse({
-        "message": "Notification List"
-    })
-
-
-def mark_as_read(request):
-
-    return JsonResponse({
-        "message": "Notification Marked as Read"
-    })
-
-
-def delete_notification(request):
-
-    return JsonResponse({
-        "message": "Notification Deleted"
-    })
-# Create your views here.
+    # mark as read
+    @action(detail=True, methods=["patch"])
+    def mark_read(self, request, pk=None):
+        notification = self.get_object()
+        notification.is_read = True
+        notification.save()
+        return Response({"message": "Marked as read"})

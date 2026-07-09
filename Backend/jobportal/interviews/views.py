@@ -1,102 +1,128 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from .models import Application
-from jobs.models import Job
-from accounts.models import User
+import uuid
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from django.core.mail import send_mail
+
+from .models import Interview
+from .serializers import InterviewSerializer
 
 
-# Home Page
-def home(request):
-    applications = Application.objects.all()
-    return render(request, "applications/home.html", {"applications": applications})
+class InterviewViewSet(viewsets.ModelViewSet):
 
+    serializer_class = InterviewSerializer
+    permission_classes = [IsAuthenticated]
 
-# Apply Job
-def apply_job(request, job_id):
-    if request.method == "POST":
-        user_id = request.POST.get("user_id")
+    # -------------------------
+    # GET INTERVIEWS
+    # -------------------------
+    def get_queryset(self):
+        user = self.request.user
 
-        user = User.objects.get(id=user_id)
-        job = Job.objects.get(id=job_id)
+        if user.role == "recruiter":
+            return Interview.objects.filter(
+                application__job__recruiter=user
+            ).order_by("-created_at")
 
-        Application.objects.create(
-            applicant=user,
-            job=job,
-            status="Pending"
-        )
+        return Interview.objects.filter(
+            application__applicant=user
+        ).order_by("-created_at")
 
-        return redirect("application_list")
+    # -------------------------
+    # CREATE INTERVIEW
+    # -------------------------
+    def perform_create(self, serializer):
 
-    return render(request, "applications/apply.html")
+        interview = serializer.save()
+        app = interview.application
+        applicant = app.applicant
+        mode = interview.mode
 
+        # =========================
+        # ONLINE → generate meeting link
+        # =========================
+        if mode == "online":
+            code = f"{uuid.uuid4().hex[:3]}-{uuid.uuid4().hex[:4]}-{uuid.uuid4().hex[:3]}"
+            interview.meeting_link = f"https://meet.google.com/{code}"
+            interview.location = None
 
-# Application List
-def application_list(request):
-    applications = Application.objects.all()
+        # =========================
+        # OFFLINE → no meeting link
+        # =========================
+        elif mode == "offline":
+            interview.meeting_link = None
 
-    return render(
-        request,
-        "applications/application_list.html",
-        {"applications": applications}
-    )
+        interview.save()
 
+        # =========================
+        # EMAIL
+        # =========================
+        if applicant.email:
+            try:
+                message = f"""
+Hello {applicant.username},
 
-# Application Details
-def application_detail(request, pk):
+Your interview is scheduled.
 
-    application = get_object_or_404(Application, id=pk)
+Job: {app.job.title}
+Date: {interview.interview_date}
+Mode: {mode}
+"""
 
-    return render(
-        request,
-        "applications/application_detail.html",
-        {"application": application}
-    )
+                if mode == "online" and interview.meeting_link:
+                    message += f"\nMeeting Link: {interview.meeting_link}"
 
+                if mode == "offline" and interview.location:
+                    message += f"\nLocation: {interview.location}"
 
-# Update Application Status
-def update_application(request, pk):
+                send_mail(
+                    subject=f"Interview Scheduled - {app.job.title}",
+                    message=message,
+                    from_email="advancedjobportal@gmail.com",
+                    recipient_list=[applicant.email],
+                    fail_silently=True,
+                )
 
-    application = get_object_or_404(Application, id=pk)
+            except Exception as e:
+                print("EMAIL ERROR:", str(e))
 
-    if request.method == "POST":
+    # -------------------------
+    # STATUS UPDATE
+    # -------------------------
+    @action(detail=True, methods=["patch"])
+    def update_status(self, request, pk=None):
 
-        application.status = request.POST.get("status")
+        interview = self.get_object()
 
-        application.save()
+        if interview.application.job.recruiter != request.user:
+            return Response({"error": "Permission denied"}, status=403)
 
-        return redirect("application_list")
+        new_status = request.data.get("status")
 
-    return render(
-        request,
-        "applications/update_application.html",
-        {"application": application}
-    )
+        if new_status not in ["scheduled", "completed", "cancelled"]:
+            return Response({"error": "Invalid status"}, status=400)
 
+        interview.status = new_status
+        interview.save()
 
-# Delete Application
-def delete_application(request, pk):
+        return Response({
+            "message": "Updated successfully",
+            "status": interview.status
+        })
 
-    application = get_object_or_404(Application, id=pk)
+    # -------------------------
+    # RECRUITER LIST
+    # -------------------------
+    @action(detail=False, methods=["get"], url_path="recruiter")
+    def recruiter_interviews(self, request):
 
-    if request.method == "POST":
-        application.delete()
-        return redirect("application_list")
+        if request.user.role != "recruiter":
+            return Response([], status=403)
 
-    return render(
-        request,
-        "applications/delete_application.html",
-        {"application": application}
-    )
+        interviews = Interview.objects.filter(
+            application__job__recruiter=request.user
+        ).order_by("-created_at")
 
-
-# Applicant Dashboard
-def applicant_dashboard(request):
-
-    applications = Application.objects.filter(status="Pending")
-
-    return render(
-        request,
-        "applications/dashboard.html",
-        {"applications": applications}
-    )
-# Create your views here.
+        serializer = self.get_serializer(interviews, many=True)
+        return Response(serializer.data)

@@ -1,0 +1,40 @@
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 280px;
+  max-width: 400px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  animation: slideIn 0.3s ease;
+}
+
+.popup.success {
+  background: #28a745;
+}
+
+.popup.error {
+  background: #dc3545;
+}
+
+.popup.warning {
+  background: #ffc107;
+  color: #000;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

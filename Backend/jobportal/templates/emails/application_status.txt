@@ -1,0 +1,14 @@
+Hello {{ name }},
+
+Your application status for "{{ job_title }}" has been updated.
+
+Current Status: {{ status }}
+
+{% if remarks %}
+Remarks: {{ remarks }}
+{% endif %}
+
+Thank you for using Advanced Job Portal.
+
+Best regards,
+Advanced Job Portal Team

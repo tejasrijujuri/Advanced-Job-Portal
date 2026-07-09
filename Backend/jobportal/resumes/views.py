@@ -1,44 +1,55 @@
-from django.http import JsonResponse
+from rest_framework import viewsets, permissions
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from django.shortcuts import get_object_or_404
+
+from .models import Resume
+from .serializers import ResumeSerializer
+
+from jobs.models import Job
+from .utils.scoring import calculate_score
 
 
-def home(request):
+class ResumeViewSet(viewsets.ModelViewSet):
+    serializer_class = ResumeSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-    return JsonResponse({
-        "message": "Resume Module"
-    })
+    def get_queryset(self):
+        return Resume.objects.filter(user=self.request.user)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-def upload_resume(request):
+    # 💥 Resume Ranking API (JOB-WISE)
+    @action(detail=False, methods=["get"], url_path="rank/(?P<job_id>[^/.]+)")
+    def rank_resumes(self, request, job_id=None):
 
-    return JsonResponse({
-        "message": "Resume Uploaded Successfully"
-    })
+        job = get_object_or_404(Job, id=job_id)
 
+        job_skills = [s.strip().lower() for s in job.skills.split(",") if s.strip()]
 
-def resume_list(request):
+        resumes = Resume.objects.all()
 
-    return JsonResponse({
-        "message": "Resume List"
-    })
+        results = []
 
+        for resume in resumes:
+            resume_skills = [
+                s.strip().lower() for s in resume.skills.split(",") if s.strip()
+            ]
 
-def resume_details(request):
+            score = calculate_score(job_skills, resume_skills)
 
-    return JsonResponse({
-        "message": "Resume Details"
-    })
+            results.append({
+                "resume_id": resume.id,
+                "candidate": resume.user.username,
+                "skills": resume.skills,
+                "score": score
+            })
 
+        results = sorted(results, key=lambda x: x["score"], reverse=True)
 
-def update_resume(request):
-
-    return JsonResponse({
-        "message": "Resume Updated Successfully"
-    })
-
-
-def delete_resume(request):
-
-    return JsonResponse({
-        "message": "Resume Deleted Successfully"
-    })
-# Create your views here.
+        return Response({
+            "job": job.title,
+            "results": results
+        })

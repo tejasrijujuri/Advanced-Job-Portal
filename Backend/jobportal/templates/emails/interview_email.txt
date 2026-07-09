@@ -1,0 +1,18 @@
+Hello {{ name }},
+
+Your interview has been scheduled.
+
+Job Title: {{ job_title }}
+Company: {{ company_name }}
+
+Interview Date: {{ interview_date }}
+
+Interview Mode / Location: {{ interview_mode }}
+
+Meeting Link:
+{{ meeting_link }}
+
+Please join on time and be prepared.
+
+Best wishes,
+Advanced Job Portal Team

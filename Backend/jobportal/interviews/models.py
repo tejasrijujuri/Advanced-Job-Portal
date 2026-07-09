@@ -1,50 +1,41 @@
 from django.db import models
+from applications.models import Application
 
 
 class Interview(models.Model):
 
     STATUS_CHOICES = (
-        ('Scheduled', 'Scheduled'),
-        ('Completed', 'Completed'),
-        ('Cancelled', 'Cancelled'),
+        ("scheduled", "Scheduled"),
+        ("completed", "Completed"),
+        ("cancelled", "Cancelled"),
     )
 
-    applicant_name = models.CharField(max_length=100)
-    applicant_email = models.EmailField()
-
-    company_name = models.CharField(max_length=200)
-
-    job_title = models.CharField(max_length=200)
-
-    interviewer_name = models.CharField(max_length=100)
-
-    interview_date = models.DateField()
-
-    interview_time = models.TimeField()
-
-    interview_mode = models.CharField(
-        max_length=20,
-        choices=(
-            ('Online', 'Online'),
-            ('Offline', 'Offline'),
-        )
+    MODE_CHOICES = (
+        ("online", "Online"),
+        ("offline", "Offline"),
     )
 
-    meeting_link = models.URLField(blank=True)
-
-    venue = models.CharField(
-        max_length=255,
-        blank=True
+    application = models.ForeignKey(
+        Application,
+        on_delete=models.CASCADE,
+        related_name="interviews"
     )
+
+    interview_date = models.DateTimeField()
+
+    mode = models.CharField(
+        max_length=10,
+        choices=MODE_CHOICES,
+        default="offline"
+    )
+
+    location = models.CharField(max_length=255, blank=True, null=True)
+    meeting_link = models.URLField(blank=True, null=True)
 
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default='Scheduled'
+        default="scheduled"
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.applicant_name
-# Create your models here.

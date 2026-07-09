@@ -1,0 +1,146 @@
+.recruiter-profile-page {
+  min-height: 100vh;
+  background: #f5f9ff;
+  padding: 30px;
+}
+
+.profile-card {
+  max-width: 950px;
+  margin: auto;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+}
+
+.profile-card h1 {
+  text-align: center;
+  color: #2563eb;
+  margin-bottom: 30px;
+}
+
+.image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #2563eb;
+  margin-bottom: 15px;
+}
+
+.profile-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.image-section input[type="file"] {
+  color: #2563eb;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+}
+
+input:disabled {
+  background: #eef4ff;
+  color: #555;
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .recruiter-profile-page {
+    padding: 15px;
+  }
+
+  .profile-card {
+    padding: 20px;
+  }
+
+  .profile-image,
+  .profile-placeholder {
+    width: 110px;
+    height: 110px;
+  }
+
+  .profile-placeholder {
+    font-size: 45px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .save-btn {
+    font-size: 16px;
+  }
+}

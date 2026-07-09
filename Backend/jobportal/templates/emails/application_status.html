@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Application Status Updated</title>
+</head>
+<body style="font-family: Arial, sans-serif; background:#f5f5f5; padding:30px;">
+
+    <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:8px;padding:30px;box-shadow:0 2px 8px rgba(0,0,0,.1);">
+
+        <h2 style="color:#2563eb;">
+            Advanced Job Portal
+        </h2>
+
+        <p>Hello <strong>{{ name }}</strong>,</p>
+
+        <p>
+            Your application for
+            <strong>{{ job_title }}</strong>
+            has been updated.
+        </p>
+
+        <div style="background:#eef4ff;padding:15px;border-radius:6px;margin:20px 0;">
+            <strong>Current Status:</strong>
+            <span style="color:#16a34a;font-size:18px;">
+                {{ status }}
+            </span>
+        </div>
+
+        {% if remarks %}
+        <p>
+            <strong>Remarks:</strong><br>
+            {{ remarks }}
+        </p>
+        {% endif %}
+
+        <p>
+            Thank you for using
+            <strong>Advanced Job Portal</strong>.
+        </p>
+
+        <hr>
+
+        <p style="color:gray;font-size:13px;">
+            Regards,<br>
+            Advanced Job Portal Team
+        </p>
+
+    </div>
+
+</body>
+</html>

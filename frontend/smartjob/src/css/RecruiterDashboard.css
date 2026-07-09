@@ -1,0 +1,233 @@
+.recruiter-dashboard {
+    padding: 30px;
+    background: #f4f8ff;
+    min-height: 100vh;
+}
+
+/* Header */
+
+.dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.dashboard-header h1{
+    color:#1e3a8a;
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.dashboard-header p{
+    color:#666;
+    font-size:16px;
+}
+
+/* Hero */
+
+.hero-section{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:white;
+
+    border-radius:16px;
+
+    padding:45px;
+
+    margin-bottom:35px;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+
+}
+
+.hero-content h2{
+
+    font-size:36px;
+
+    margin-bottom:15px;
+
+}
+
+.hero-content p{
+
+    width:65%;
+
+    line-height:1.7;
+
+    margin-bottom:25px;
+
+    font-size:17px;
+
+}
+
+.hero-btn{
+
+    display:inline-block;
+
+    padding:14px 28px;
+
+    background:white;
+
+    color:#2563eb;
+
+    text-decoration:none;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.hero-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* Section */
+
+.section-title{
+
+    margin-bottom:20px;
+
+    color:#1e40af;
+
+    font-size:28px;
+
+}
+
+/* Cards */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+    margin-bottom:40px;
+
+}
+
+.dashboard-card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:28px;
+
+    text-decoration:none;
+
+    color:#111827;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    border-top:5px solid #2563eb;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 14px 28px rgba(37,99,235,.18);
+
+}
+
+.card-icon{
+
+    font-size:42px;
+
+    margin-bottom:18px;
+
+}
+
+.dashboard-card h3{
+
+    color:#1e3a8a;
+
+    margin-bottom:12px;
+
+}
+
+.dashboard-card p{
+
+    color:#555;
+
+    line-height:1.6;
+
+}
+
+/* Tips */
+
+.tips-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.tips-box h2{
+
+    color:#1e40af;
+
+    margin-bottom:20px;
+
+}
+
+.tips-box ul{
+
+    padding-left:20px;
+
+}
+
+.tips-box li{
+
+    margin-bottom:12px;
+
+    color:#555;
+
+    line-height:1.7;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero-content p{
+
+width:100%;
+
+}
+
+.hero-content h2{
+
+font-size:28px;
+
+}
+
+.dashboard-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+
+}
+
+}

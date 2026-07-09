@@ -1,122 +1,104 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+/* PUBLIC */
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOTP from "./pages/VerifyOTP";
+import ResetPassword from "./pages/ResetPassword";
 
+/* JOBSEEKER */
+import DashboardLayout from "./layouts/DashboardLayout";
+import DashboardHome from "./pages/DashboardHome";
+import Jobs from "./pages/Jobs";
+import JobDetails from "./pages/JobDetails";
+import MyApplications from "./pages/MyApplications";
+import SavedJobs from "./pages/SavedJobs";
+import MyProfile from "./pages/MyProfile";
+import Interviews from "./pages/Interviews";
+import JobseekerDashboard from "./pages/JobseekerDashboard";
+
+/* RECRUITER */
+import RecruiterLayout from "./layouts/RecruiterLayout";
+import RecruiterDashboard from "./pages/RecruiterDashboard";
+import RecruiterJobs from "./pages/RecruiterJobs";
+import CreateJob from "./pages/CreateJob";
+import EditJob from "./pages/EditJob";
+import JobApplicants from "./pages/JobApplicants";
+import RecruiterAnalytics from "./pages/RecruiterAnalytics";
+import RecruiterProfile from "./pages/RecruiterProfile";
+
+/* ADMIN */
+import AdminDashboard from "./pages/AdminDashboard";
+
+/* AUTH GUARD */
+import ProtectedRoute from "./components/ProtectedRoute";
+
+export default function App() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <BrowserRouter>
+      <Routes>
+
+        {/* ROOT */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* PUBLIC */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-otp" element={<VerifyOTP />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+        {/* JOBSEEKER */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
         >
-          Count is {count}
-        </button>
-      </section>
+          <Route index element={<DashboardHome />} />
+          <Route path="jobs" element={<Jobs />} />
+          <Route path="jobs/:id" element={<JobDetails />} />
+          <Route path="applications" element={<MyApplications />} />
+          <Route path="saved-jobs" element={<SavedJobs />} />
+          <Route path="profile" element={<MyProfile />} />
+          <Route path="interviews" element={<Interviews />} />
+        </Route>
 
-      <div className="ticks"></div>
+        {/* JOBSEEKER ALT */}
+        <Route
+          path="/jobseeker/dashboard"
+          element={
+            <ProtectedRoute>
+              <JobseekerDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {/* RECRUITER */}
+        <Route
+          path="/recruiter"
+          element={
+            <ProtectedRoute>
+              <RecruiterLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<RecruiterDashboard />} />
+          <Route path="jobs" element={<RecruiterJobs />} />
+          <Route path="create-job" element={<CreateJob />} />
+          <Route path="edit-job/:id" element={<EditJob />} />
+          <Route path="applicants" element={<JobApplicants />} />
+          <Route path="job/:id/applications" element={<JobApplicants />} />
+          <Route path="interviews" element={<Interviews />} />
+          <Route path="analytics" element={<RecruiterAnalytics />} />
+          <Route path="profile" element={<RecruiterProfile />} />
+        </Route>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App

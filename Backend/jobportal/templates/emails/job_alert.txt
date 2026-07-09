@@ -1,0 +1,7 @@
+Hello {{ name }},
+
+New job posted: {{ job_title }}
+
+Apply now in Job Portal.
+
+Thank you

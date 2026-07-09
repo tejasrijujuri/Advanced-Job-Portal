@@ -1,0 +1,10 @@
+Hello {{ name }},
+
+Welcome to Advanced Job Portal!
+
+We're excited to have you on board.
+
+Start exploring jobs and apply to opportunities that match your skills.
+
+Thank you,
+Advanced Job Portal Team

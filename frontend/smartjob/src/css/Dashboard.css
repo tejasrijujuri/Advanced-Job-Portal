@@ -1,0 +1,258 @@
+/* ===== Dashboard Layout ===== */
+
+.dashboard-container{
+    display:flex;
+    min-height:100vh;
+    background:#f4f7fc;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:260px;
+    background:#0f172a;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    box-shadow:2px 0 10px rgba(0,0,0,.1);
+}
+
+.sidebar-logo{
+    padding:30px 20px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.sidebar-logo h2{
+    font-size:24px;
+    color:#3b82f6;
+    margin-bottom:8px;
+}
+
+.sidebar-logo p{
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+.sidebar-menu{
+    display:flex;
+    flex-direction:column;
+    padding:20px 0;
+}
+
+.sidebar-menu a{
+    color:#fff;
+    text-decoration:none;
+    padding:15px 25px;
+    transition:.3s;
+    font-size:16px;
+    border-left:4px solid transparent;
+}
+
+.sidebar-menu a:hover{
+    background:#1e293b;
+    border-left:4px solid #3b82f6;
+}
+
+.sidebar-menu a.active{
+    background:#2563eb;
+    border-left:4px solid #fff;
+}
+
+/* Main */
+
+.dashboard-main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+/* Topbar */
+
+.topbar{
+    height:75px;
+    background:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 30px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.topbar h1{
+    font-size:24px;
+    color:#1e3a8a;
+}
+
+.topbar p{
+    color:#64748b;
+    font-size:14px;
+}
+
+/* Logout */
+
+.logout-btn{
+    background:#ef4444;
+    color:#fff;
+    border:none;
+    padding:10px 22px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
+}
+
+.logout-btn:hover{
+    background:#dc2626;
+}
+
+/* Content */
+
+.page-content{
+    padding:30px;
+    overflow:auto;
+    flex:1;
+}
+
+/* ===========================
+   Dashboard Home
+=========================== */
+
+.dashboard-home{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.welcome-card{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    border-radius:15px;
+    padding:35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.welcome-card h1{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.welcome-card p{
+    font-size:17px;
+    opacity:.95;
+}
+
+.logout-home-btn{
+    background:white;
+    color:#2563eb;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.logout-home-btn:hover{
+    transform:translateY(-2px);
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:12px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-6px);
+}
+
+.stat-card h2{
+    font-size:38px;
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.stat-card p{
+    color:#555;
+}
+
+.quick-actions{
+    background:white;
+    border-radius:12px;
+    padding:30px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.quick-actions h2{
+    margin-bottom:20px;
+    color:#1e3a8a;
+}
+
+.action-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.action-card{
+    background:#f8fafc;
+    border:2px solid transparent;
+    border-radius:12px;
+    padding:30px;
+    cursor:pointer;
+    text-align:center;
+    transition:.3s;
+    font-size:40px;
+}
+
+.action-card:hover{
+    border-color:#2563eb;
+    background:white;
+    transform:translateY(-5px);
+}
+
+.action-card h3{
+    margin:15px 0 10px;
+    color:#1e3a8a;
+    font-size:22px;
+}
+
+.action-card p{
+    color:#666;
+    font-size:15px;
+}
+
+.tips-card{
+    background:white;
+    border-radius:12px;
+    padding:30px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.tips-card h2{
+    color:#1e3a8a;
+    margin-bottom:20px;
+}
+
+.tips-card ul{
+    list-style:none;
+    padding:0;
+}
+
+.tips-card li{
+    margin-bottom:12px;
+    font-size:16px;
+}

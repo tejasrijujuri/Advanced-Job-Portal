@@ -1,0 +1,12 @@
+Hello {{ name }},
+
+Your application for the position of "{{ job_title }}" has been submitted successfully.
+
+Company: {{ company_name }}
+
+Our recruiters will review your application and contact you if your profile matches the requirements.
+
+Thank you for using Advanced Job Portal.
+
+Best regards,
+Advanced Job Portal Team

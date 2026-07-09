@@ -1,0 +1,240 @@
+/* =========================
+   PROFILE PAGE
+========================= */
+
+.profile-page{
+  min-height:100vh;
+  background:#f5f7fb;
+  padding:25px;
+}
+
+.profile-container{
+  max-width:1000px;
+  margin:auto;
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.profile-title{
+  font-size:28px;
+  font-weight:700;
+  color:#2563eb;
+  margin-bottom:25px;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.profile-grid{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:25px;
+}
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.profile-left{
+  border-right:1px solid #e5e7eb;
+  padding-right:20px;
+}
+
+.profile-photo-box{
+  width:120px;
+  height:120px;
+  margin:0 auto 20px;
+}
+
+.profile-photo{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid #2563eb;
+}
+
+.no-photo{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:#e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#6b7280;
+  font-size:14px;
+}
+
+.resume-box{
+  margin-top:20px;
+}
+
+.resume-box a{
+  display:block;
+  margin-top:8px;
+  color:#2563eb;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.resume-box a:hover{
+  text-decoration:underline;
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.profile-right{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.profile-right label,
+.profile-left label{
+  display:block;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#374151;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+textarea{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:15px;
+  transition:.25s;
+  box-sizing:border-box;
+}
+
+input:focus,
+textarea:focus{
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+textarea{
+  resize:vertical;
+  min-height:90px;
+}
+
+input[type="file"]{
+  border:none;
+  padding:5px 0;
+}
+
+input:disabled{
+  background:#f3f4f6;
+  cursor:not-allowed;
+}
+
+/* =========================
+   LINKS
+========================= */
+
+a{
+  color:#2563eb;
+  text-decoration:none;
+}
+
+a:hover{
+  text-decoration:underline;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+button{
+  margin-top:10px;
+  padding:12px;
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  background:#1d4ed8;
+}
+
+button:disabled{
+  background:#9ca3af;
+  cursor:not-allowed;
+}
+
+/* =========================
+   LOADING & ERROR
+========================= */
+
+.profile-loading,
+.profile-error{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:70vh;
+  font-size:22px;
+  font-weight:600;
+}
+
+.profile-error{
+  color:#dc2626;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+  .profile-page{
+    padding:15px;
+  }
+
+  .profile-container{
+    padding:20px;
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr;
+  }
+
+  .profile-left{
+    border-right:none;
+    border-bottom:1px solid #e5e7eb;
+    padding-right:0;
+    padding-bottom:20px;
+    text-align:center;
+  }
+
+  .grid-2{
+    grid-template-columns:1fr;
+  }
+
+  .profile-photo-box{
+    margin:auto;
+  }
+
+}

@@ -1,0 +1,131 @@
+.register-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f4f7fc;
+    padding:30px;
+}
+
+.register-card{
+    width:100%;
+    max-width:1050px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.1);
+}
+
+.register-left{
+    background:linear-gradient(135deg,#2563eb,#1e40af);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:60px;
+}
+
+.register-left h1{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.register-left p{
+    font-size:18px;
+    line-height:1.8;
+}
+
+.register-right{
+    padding:60px;
+}
+
+.register-right h2{
+    margin-bottom:30px;
+    color:#1e293b;
+}
+
+.register-right form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.register-right input,
+.register-right select{
+    padding:14px;
+    border:1px solid #dbe4f0;
+    border-radius:10px;
+    font-size:16px;
+}
+
+.register-right input:focus,
+.register-right select:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+.register-right button{
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.register-right button:hover{
+    background:#1d4ed8;
+}
+
+.register-link{
+    margin-top:25px;
+    text-align:center;
+}
+
+.register-link a{
+    color:#2563eb;
+    text-decoration:none;
+    font-weight:600;
+}
+
+@media(max-width:900px){
+
+.register-card{
+    grid-template-columns:1fr;
+}
+
+.register-left{
+    display:none;
+}
+
+.register-right{
+    padding:35px;
+}
+
+}
+
+
+.error-message {
+  background: #ffe5e5;
+  color: #d10000;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.success-message {
+  background: #e7ffe7;
+  color: #008000;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: 600;
+}
